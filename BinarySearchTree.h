@@ -2,16 +2,14 @@
 #include <iostream>
 using namespace std;
 
-
-class test {};
-
-template <typename T> class BinSearchTree {
+template <typename T> 
+class BinSearchTree {
 public:
 	// Pre: 0 < k
 	// Crea un arbre buit de k-dimensions
 	BinSearchTree(unsigned int k) {
-		n = 0;
-		this->k = k;
+		n = 0;					
+		this->k = k;			
 		root = nullptr;
 	}
 	
@@ -22,9 +20,9 @@ public:
 	
 	// Pre la clau té mida k
 	// Insereix x a l'arbre seguint la clau
-	void insert(const T& x, const vector<double>& key) {
+	void insert(const T& info, const vector<double>& key) {
 		if (key.size() != k) throw invalid_argument("BinSearchTree::insert key must be of size k");
-		if (empty(root)) root = new node(x, key);
+		if (empty(root)) root = new node(info, key);
 		else {
 			int level = 0;
 			node* a = root;
@@ -32,7 +30,7 @@ public:
 			while (not found) {
 				if (key[level%k] <= a->key[level%k]) {
 					if (empty(a->left)) {
-						node* newnode = new node(x, key);
+						node* newnode = new node(info, key);
 						a->left = newnode;
 						newnode->parent = a;
 						found = true;
@@ -41,7 +39,7 @@ public:
 				}
 				else {
 					if (empty(a->right)) {
-						node* newnode = new node(x, key);
+						node* newnode = new node(info, key);
 						a->right = newnode;
 						newnode->parent = a;
 						found = true;
@@ -61,7 +59,6 @@ public:
 		vector<bool> l;
 		print_tree_rec(root, 0, l);
 	}
-	
 
 private:
 	struct node {
@@ -81,6 +78,7 @@ private:
 			if (empty(right)) delete right;
 		}
 	};
+
 
 	static bool empty(const node* n) {
 		return n == nullptr;
