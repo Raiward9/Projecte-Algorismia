@@ -17,7 +17,7 @@ public:
 
     
     //Pre: 0 < k_dims and 0 <= num_nodes 
-    //Genera un k-d tree aleatori de mida mum_nodes
+    //Genera un k-d tree aleatori de mida num_nodes
     BinSearchTree<int> generate_tree(unsigned int num_nodes, unsigned int k_dim) {
         BinSearchTree<int> tree(k_dim);
         
@@ -33,8 +33,9 @@ public:
     }
 
 private:
-    //mersenne_twister_engine de 64 bits, crea numeros pseudorandoms
-    //segueix una distribucio casi uniforme (els valors de la clau han de seguir aquesta distribucio)
+    //mersenne_twister_engine de 64 bits, crea numeros pseudorandoms de 64 bits
+    //L'engine de l'algorisme esta optimitzar per crear llargues sequencies de numeros seguint una 
+    //distribucio casi uniforme (nosaltres volem una distribucio uniforme)
     //Altres alternativas a <random>: linear_congruential_engine, substract_with_carry_engine
     random_device random_seed_generator;
     mt19937_64 num_generator; 
