@@ -5,6 +5,9 @@ using namespace std;
 class BinSearchTreeGenerator {
 public:
 
+    //Pre:
+    //Inicialitza el generador de numeros amb una seed random i l'objecte
+    //per seguir una distribucio uniforme
     BinSearchTreeGenerator() {
         this->num_generator =  mt19937_64(random_seed_generator());
         this->Uniforme = uniform_real_distribution<double>(0.0, 1.0);
@@ -14,7 +17,7 @@ public:
 
     
     //Pre: 0 < k_dims and 0 <= num_nodes 
-    //Genera un k-d tree aleatori de mida
+    //Genera un k-d tree aleatori de mida mum_nodes
     BinSearchTree<int> generate_tree(unsigned int num_nodes, unsigned int k_dim) {
         BinSearchTree<int> tree(k_dim);
         
@@ -38,9 +41,11 @@ private:
     unsigned seed;
     uniform_real_distribution<double> Uniforme;
 
+
+    //Pre: 0 < dim
+    //Genera dim números aleatoris seguint una distribució uniforme i un valor de info
     pair<int, vector<double>> create_node(unsigned int dim) {
         int info = 1;        // ni idea de que ha de ser la info, no se ni si ho posa a l'enunciat
-        
         
         vector<double> key(dim);
         for(int i = 0; i < dim; ++i) 
