@@ -6,7 +6,7 @@ int main() {
 
     tree.print_tree();
 
-    tree = generator.generate_tree(5, 7);
+    BinSearchTree<int> tree2 = generator.generate_tree(5, 7);
 
-    tree.print_tree();
+    tree2.print_tree();
 }
