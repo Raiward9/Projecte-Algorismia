@@ -39,7 +39,6 @@ private:
     //Altres alternativas a <random>: linear_congruential_engine, substract_with_carry_engine
     random_device random_seed_generator;
     mt19937_64 num_generator; 
-    unsigned seed;
     uniform_real_distribution<double> Uniforme;
 
 
