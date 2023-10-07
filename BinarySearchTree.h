@@ -154,6 +154,7 @@ private:
 		else cout << endl;
 	}
 
+	//recorre l'arbre fins trobar la fulla on hauria d'anar p
 	node* closest_leaf(const vector<double>& p, node* a, int level) {
 		if(is_leaf(a)) return a;
 		
@@ -233,7 +234,7 @@ private:
 		if (x < double(0)) return -x;
 		return x;
 	}
-	
+
 	BinSearchTree<T> operator=(const BinSearchTree<T>& other) {
 		this->root = other.root;
 		this->n = other.n;
