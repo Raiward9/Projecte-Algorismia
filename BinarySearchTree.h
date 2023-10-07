@@ -27,7 +27,7 @@ public:
 		for(auto x: key) 
 			if(x < 0 or x > 1) throw invalid_argument("BinSearchTree::all key values must between 0 and 1 (included)");
 		
-		
+
 		if (empty(root)) root = new node(info, key);
 		else {
 			int level = 0;
@@ -85,9 +85,9 @@ public:
 		double distClosestPoint = euclideanDist(root->key,p);
 		int numNodes = 0;
 		nearestNeighbourRecursive(p,root,closestPoint,distClosestPoint,numNodes,0);
-		//cout << "Point p: " << printPoint(p);
-		cout << "Distance from p: " << distClosestPoint << endl;
-		cout << "Number of visited nodes: " << numNodes << endl;
+
+		// cout << "Distance from p: " << distClosestPoint << endl;
+		// cout << "Number of visited nodes: " << numNodes << endl;
 		return closestPoint;
 	}
 
@@ -114,13 +114,6 @@ private:
 	static bool empty(const node* n) {
 		return n == nullptr;
 	}
-
-	/*static void printPoint(const vector<double>& p) {
-		int size = p.size();
-		cout << p[0];
-		for (int i = 1; i < size; ++i) cout << ' ' << p[i];
-		cout << endl;
-	}*/
 
 	static void print_tree_rec(node* a, int level, vector<bool>& l) {
 		for (int i = 0; i < level-1; ++i) {
@@ -188,31 +181,6 @@ private:
 		keys_rec(a->left, keys);
 		keys_rec(a->right, keys);
 	}
-
-	// // Pre: p.size() == k
-	// // Post: stores the closest point to p in closestPoint and the distance in distClosestPoint
-	// // numNodes contains the total number of visited nodes
-	// void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, double& distClosestPoint, int& numNodes, int level) {
-	// 	if (not empty(x)) {
-	// 		int discriminant = level % k;
-	// 		double newDist = euclideanDist(x->key,p);
-	// 		if (newDist < distClosestPoint) {
-	// 			closestPoint = x->key;
-	// 			distClosestPoint = newDist;
-	// 		}
-
-	// 		if (distClosestPoint > (absValue(p[discriminant] - x->key[discriminant]))) {
-	// 			nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
-	// 			nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
-	// 		}
-	// 		else {
-	// 			if (x->key[discriminant] - p[discriminant] > double(0)) nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
-	// 			else nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
-	// 		}
-
-	// 		++numNodes;
-	// 	}
-	// }
 
 	// pre: p1.size() == p2.size() > 0
 	// calculates euclidean distance d(p1,p2) in the respective number of dimensions

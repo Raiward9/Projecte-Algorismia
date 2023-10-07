@@ -21,7 +21,7 @@ int main() {
         BinSearchTree<int> tree = generator.generate_tree(n, k);
         tree.list_keys();
 
-        vector<double> p = {double(0.2),double(0.5)};
+        vector<double> p = {double(0.0),double(0.0), double(0.0)};
         cout << "p: ";
         for(auto x: p) {
             cout << x << ' ';

@@ -45,7 +45,7 @@ private:
     //Pre: 0 < dim
     //Genera dim números aleatoris seguint una distribució uniforme i un valor de info
     pair<int, vector<double>> create_node(unsigned int dim) {
-        int info = 1;        // ni idea de que ha de ser la info, no se ni si ho posa a l'enunciat
+        int info = 1; 
         
         vector<double> key(dim);
         for(int i = 0; i < dim; ++i) 
