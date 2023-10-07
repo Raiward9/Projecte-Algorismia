@@ -140,6 +140,7 @@ private:
 		}
 		else cout << endl;
 	}
+
 	// Prints tree from provided in readable format
 
 	void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, 
@@ -222,6 +223,13 @@ private:
 	double absValue(double x) {
 		if (x < double(0)) return -x;
 		return x;
+	}
+
+	BinSearchTree<T> operator=(const BinSearchTree<T>& other) {
+		this->root = other.root;
+		this->n = other.n;
+		this->k = other.k;
+		return *this;
 	}
 
 	node* root;
