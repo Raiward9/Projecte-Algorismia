@@ -8,7 +8,7 @@ int main() {
 	{-1.0,0.0},
 	{-1.0,-1.0},
 	{-1.0,1.0},
-	{1.0,0.0},
+	{0.7,0.5},
 	{1.0,-1.0},
 	{1.0,1.0}};
 	t.insert('A', val[0]);
@@ -20,6 +20,18 @@ int main() {
 	t.insert('G', val[6]);
 	
     vector<double> p = {double(0.2),double(0.5)};
-    p = t.nearestNeighbour(p);
-    cout << "hola";
+
+	cout << "p: ";
+	for(auto x: p) {
+		cout << x << ' ';
+	}
+	cout << endl;
+
+    vector<double> closestPoint = t.nearestNeighbour(p);
+    
+	cout << "Closest Point: ";
+	for(auto x: closestPoint) {
+		cout << x << ' ';
+	}
+	cout << endl;
 }

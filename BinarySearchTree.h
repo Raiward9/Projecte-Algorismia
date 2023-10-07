@@ -61,6 +61,17 @@ public:
 		print_tree_rec(root, 0, l);
 	}
 
+	void list_keys() {
+		vector<vector<double>> ks = keys();
+		for(int i = 0; i < ks.size(); ++i) {
+			cout << i+1 << ": ";
+			for(int j = 0; j < ks[i].size(); ++j) {
+				cout << ks[i][j] << ' ';
+			}
+			cout << endl;
+		}
+	}
+
 	// Pre: p.size() == k
 	// Returns the closest point from p in the tree by euclidean distance
 	vector<double> nearestNeighbour(const vector<double>& p) {
@@ -131,29 +142,70 @@ private:
 	}
 	// Prints tree from provided in readable format
 
-	// Pre: p.size() == k
-	// Post: leaves closestPoint to p in closestPoint and the distance in distClosestPoint
-	// numNodes contains the total number of visited nodes
-	void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, double& distClosestPoint, int& numNodes, int level) {
-		if (not empty(x)) {
+	void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, 
+								 double& distClosestPoint, int& numNodes, int level) {
+			
+		if(not empty(x)) { 
 			int discriminant = level % k;
-			double newDist = euclideanDist(x->key,p);
-			if (newDist < distClosestPoint) {
+			double newDist = euclideanDist(x->key, p);
+			if(newDist <= distClosestPoint) { //d(q, x) < d(q, closestPoint)
 				closestPoint = x->key;
 				distClosestPoint = newDist;
 			}
-			if (distClosestPoint > (absValue(p[discriminant] - x->key[discriminant]))) {
+			
+			if(p[discriminant] > x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] > x[disc] (els mes semblants estan a drt de x)
+				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
+			
+			else if(p[discriminant] < x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] < x[disc] (els mes semblants estan a esq de x)
+				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
+			
+			else { //d(q,x) > d(q,closestPoint) and p[disc] == x[disc] (els mes semblants a p podrien estar a esq o drt)
 				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
 				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
-			}
-			else {
-				if (x->key[discriminant] - p[discriminant] > double(0)) nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
-				else nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
 			}
 
 			++numNodes;
 		}
 	}
+
+	vector<vector<double>> keys() {
+		vector<vector<double>> ks;
+		keys_rec(root, ks);
+		return ks;
+	}
+
+	void keys_rec(const node* a, vector<vector<double>>& keys) {
+		if(not empty(a)) keys.push_back(a->key);
+		else return;
+
+		keys_rec(a->left, keys);
+		keys_rec(a->right, keys);
+	}
+
+	// // Pre: p.size() == k
+	// // Post: stores the closest point to p in closestPoint and the distance in distClosestPoint
+	// // numNodes contains the total number of visited nodes
+	// void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, double& distClosestPoint, int& numNodes, int level) {
+	// 	if (not empty(x)) {
+	// 		int discriminant = level % k;
+	// 		double newDist = euclideanDist(x->key,p);
+	// 		if (newDist < distClosestPoint) {
+	// 			closestPoint = x->key;
+	// 			distClosestPoint = newDist;
+	// 		}
+
+	// 		if (distClosestPoint > (absValue(p[discriminant] - x->key[discriminant]))) {
+	// 			nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
+	// 			nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
+	// 		}
+	// 		else {
+	// 			if (x->key[discriminant] - p[discriminant] > double(0)) nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
+	// 			else nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
+	// 		}
+
+	// 		++numNodes;
+	// 	}
+	// }
 
 	// pre: p1.size() == p2.size() > 0
 	// calculates euclidean distance d(p1,p2) in the respective number of dimensions
