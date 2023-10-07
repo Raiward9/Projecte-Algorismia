@@ -66,6 +66,21 @@ public:
 		print_tree_rec(root, 0, l);
 	}
 
+	pair<double, vector<double>> ideal_euclidean_keys(const vector<double>& p) {
+		vector<vector<double>> ks = keys();
+		double best_euclidean_dist = p.size() + 1;
+		vector<double> best_point;
+		for(auto x: ks) {
+			double new_dist = euclideanDist(x, p);
+			if(best_euclidean_dist >= new_dist) {
+				best_euclidean_dist = new_dist;
+				best_point = x;
+			}
+		}
+		pair<double, vector<double>> res = {best_euclidean_dist, best_point};
+		return res;
+	}
+
 	void list_keys() {
 		vector<vector<double>> ks = keys();
 		for(int i = 0; i < ks.size(); ++i) {
@@ -86,8 +101,8 @@ public:
 		int numNodes = 0;
 		nearestNeighbourRecursive(p,root,closestPoint,distClosestPoint,numNodes,0);
 
-		// cout << "Distance from p: " << distClosestPoint << endl;
-		// cout << "Number of visited nodes: " << numNodes << endl;
+		cout << "Distance from p: " << distClosestPoint << endl;
+		cout << "Number of visited nodes: " << numNodes << endl;
 		return closestPoint;
 	}
 
@@ -150,6 +165,10 @@ private:
 			if(newDist <= distClosestPoint) { //d(q, x) < d(q, closestPoint)
 				closestPoint = x->key;
 				distClosestPoint = newDist;
+				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
+				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
+			}
+			else if(level <= k) {
 				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
 				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
 			}
