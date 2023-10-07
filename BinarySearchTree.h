@@ -23,6 +23,11 @@ public:
 	// Insereix x a l'arbre seguint la clau
 	void insert(const T& info, const vector<double>& key) {
 		if (key.size() != k) throw invalid_argument("BinSearchTree::insert key must be of size k");
+
+		for(auto x: key) 
+			if(x < 0 or x > 1) throw invalid_argument("BinSearchTree::all key values must between 0 and 1 (included)");
+		
+		
 		if (empty(root)) root = new node(info, key);
 		else {
 			int level = 0;
@@ -152,9 +157,10 @@ private:
 			if(newDist <= distClosestPoint) { //d(q, x) < d(q, closestPoint)
 				closestPoint = x->key;
 				distClosestPoint = newDist;
+				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
+				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
 			}
-			
-			if(p[discriminant] > x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] > x[disc] (els mes semblants estan a drt de x)
+			else if(p[discriminant] > x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] > x[disc] (els mes semblants estan a drt de x)
 				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
 			
 			else if(p[discriminant] < x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] < x[disc] (els mes semblants estan a esq de x)
