@@ -95,9 +95,9 @@ public:
 	// Pre: p.size() == k
 	// Returns the closest point from p in the tree by euclidean distance
 	vector<double> nearestNeighbour(const vector<double>& p) {
-		//if (empty(root)) 
-		vector<double> closestPoint = root->key;
-		double distClosestPoint = euclideanDist(root->key,p);
+		
+		vector<double> closestPoint = closest_leaf(p, root, 0)->key;
+		double distClosestPoint = euclideanDist(closestPoint,p);
 		int numNodes = 0;
 		nearestNeighbourRecursive(p,root,closestPoint,distClosestPoint,numNodes,0);
 
@@ -154,45 +154,61 @@ private:
 		else cout << endl;
 	}
 
-	// Prints tree from provided in readable format
+	node* closest_leaf(const vector<double>& p, node* a, int level) {
+		if(is_leaf(a)) return a;
+		
+		int discriminant = level % k;
+		if(a->key[discriminant] >= p[discriminant]) {
+			if(empty(a->left)) return a;
+			else return closest_leaf(p, a->left, level+1);
+		}
+		else {
+			if(empty(a->right)) return a;
+			else return closest_leaf(p, a->right, level+1);
+		}
+	}
 
+	//Pre:
+	//Returns true if the node is a leaf, false otherwise
+	bool is_leaf(node* a) {
+		return not empty(a) and empty(a->left) and empty(a->right);
+	}
+
+	
+	//Pre: si
+	//Wikipedia
 	void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, 
 								 double& distClosestPoint, int& numNodes, int level) {
 			
 		if(not empty(x)) { 
 			int discriminant = level % k;
 			double newDist = euclideanDist(x->key, p);
-			if(newDist <= distClosestPoint) { //d(q, x) < d(q, closestPoint)
+			if (newDist < distClosestPoint) {
 				closestPoint = x->key;
 				distClosestPoint = newDist;
+			}
+			
+			if (distClosestPoint > (absValue(p[discriminant] - x->key[discriminant]))) {
 				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
 				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
 			}
-			else if(level <= k) {
-				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
-				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
-			}
-			else if(p[discriminant] > x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] > x[disc] (els mes semblants estan a drt de x)
-				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
-			
-			else if(p[discriminant] < x->key[discriminant]) //d(q,x) > d(q,closestPoint) and p[disc] < x[disc] (els mes semblants estan a esq de x)
-				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
-			
-			else { //d(q,x) > d(q,closestPoint) and p[disc] == x[disc] (els mes semblants a p podrien estar a esq o drt)
-				nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
-				nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
+			else {
+				if (x->key[discriminant] - p[discriminant] > double(0)) nearestNeighbourRecursive(p,x->left,closestPoint,distClosestPoint,numNodes,level+1);
+				else nearestNeighbourRecursive(p,x->right,closestPoint,distClosestPoint,numNodes,level+1);
 			}
 
 			++numNodes;
 		}
 	}
 
+	//Retorna totes les keys de l'arbre
 	vector<vector<double>> keys() {
 		vector<vector<double>> ks;
 		keys_rec(root, ks);
 		return ks;
 	}
 
+	//Crida recursiva per calcular les keys de l'arbre
 	void keys_rec(const node* a, vector<vector<double>>& keys) {
 		if(not empty(a)) keys.push_back(a->key);
 		else return;
@@ -217,7 +233,7 @@ private:
 		if (x < double(0)) return -x;
 		return x;
 	}
-
+	
 	BinSearchTree<T> operator=(const BinSearchTree<T>& other) {
 		this->root = other.root;
 		this->n = other.n;

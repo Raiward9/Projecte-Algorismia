@@ -12,7 +12,7 @@ int main() {
     cin >> n;
     cout << endl;
 
-    vector<double> p = {double(0.5),double(0.5), double(0.5), double(0.5), double(0.5), double(0.5), double(0.5)};
+    vector<double> p = {double(0.2),double(0.9), double(0.3), double(0.5), double(0.7), double(0.1), double(0.0)};
     k = p.size();
 
     for(int i = 0; i < num_examples; ++i) {
