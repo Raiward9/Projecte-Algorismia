@@ -74,8 +74,8 @@ private:
 		}
 
 		~node() {
-			if (empty(left)) delete left;
-			if (empty(right)) delete right;
+			if (not empty(left)) delete left;
+			if (not empty(right)) delete right;
 		}
 	};
 
