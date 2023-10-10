@@ -13,7 +13,33 @@ public:
 		this->k = k;			
 		root = nullptr;
 	}
+
+	// Copy constructor, needed for deep copies
+	/*	Automatically called when the object is:
+			-passed as a value parameter to a function,
+			-returned (by value) as a function result,
+			-declared with initialization from an existing object of the same class.
+
+		For more info: https://pages.cs.wisc.edu/~hasti/cs368/CppTutorial/NOTES/CLASSES-PTRS.html#copyCons
+	*/
+	BinSearchTree(const BinSearchTree<T>& ref) {
+		deepCopy(ref);
+	}
 	
+	// Assignment constructor, to avoid dangling pointers when the referenced object to assign is deleted, deep copy is needed
+	/*	Automatically called when an object is assigned to another object
+		For more info: https://pages.cs.wisc.edu/~hasti/cs368/CppTutorial/NOTES/CLASSES-PTRS.html#assign
+	*/
+	BinSearchTree<T> & operator=(const BinSearchTree<T> &ref) {
+		// check for "self assignment" and do nothing in that case
+		if (this == &ref) return *this;
+		else {
+			delete root; // free the storage
+			deepCopy(ref);
+			return *this;
+		}
+	}
+
 	// Destructora
 	~BinSearchTree() {
 		delete root;
@@ -238,11 +264,26 @@ private:
 		return x;
 	}
 
-	BinSearchTree<T> operator=(const BinSearchTree<T>& other) {
-		this->root = other.root;
-		this->n = other.n;
-		this->k = other.k;
-		return *this;
+	void deepCopy(const BinSearchTree<T>& ref) {
+		k = ref.k;
+		n = ref.n;
+		if (not empty(ref.root)) {
+			root = new node(ref.root->info, ref.root->key);
+			recursiveCopy(ref.root, root);
+		}
+	}
+
+	void recursiveCopy(node* refNode, node* copyNode) {
+		if (not empty(refNode->left)) {
+			copyNode->left = new node(refNode->left->info, refNode->left->key);
+			copyNode->left->parent = copyNode;
+			recursiveCopy(refNode->left, copyNode->left);
+		}
+		if (not empty(refNode->right)) {
+			copyNode->right = new node(refNode->right->info, refNode->right->key);
+			copyNode->right->parent = copyNode;
+			recursiveCopy(refNode->right, copyNode->right);
+		}
 	}
 
 	node* root;
