@@ -119,7 +119,7 @@ private:
 			key = k;
 			parent = nullptr;
 			left = nullptr;
-			right = nullptr;
+			right = nullptr; 
 		}
 
 		~node() {
