@@ -117,11 +117,14 @@ private:
 		node(const T& i, const vector<double>& k) {
 			info = i;
 			key = k;
+			parent = nullptr;
+			left = nullptr;
+			right = nullptr;
 		}
 
 		~node() {
-			if (empty(left)) delete left;
-			if (empty(right)) delete right;
+			if (not empty(left)) delete left;
+			if (not empty(right)) delete right;
 		}
 	};
 
