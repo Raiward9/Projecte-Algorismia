@@ -12,12 +12,15 @@ int main() {
     cin >> n;
     cout << endl;
 
-    vector<double> p = {double(0.2),double(0.9), double(0.3), double(0.5), double(0.7), double(0.1), double(0.0)};
-    k = p.size();
+    cout << "Quantes dimensions han de tindre els punts? : ";
+    cin >> k;
+    cout << endl;
+
 
     for(int i = 0; i < num_examples; ++i) {
         
         BinSearchTreeGenerator generator;
+        vector<double> p = generator.generar_targets(k);
         BinSearchTree<int> tree = generator.generate_tree(n, k);
         //tree.list_keys();
 
@@ -43,6 +46,6 @@ int main() {
         for(double x: ideal_point)
             cout << x << ' ';
         
-        cout << endl;
+        cout << endl << endl;
     }
 }

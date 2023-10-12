@@ -32,6 +32,13 @@ public:
         return tree;
     }
 
+    vector<double> generar_targets(unsigned int dim) {
+        vector<double> target(dim);
+        for(int i = 0; i < dim; ++i) target[i] = Uniforme(num_generator);
+
+        return target;
+    }
+
 private:
     //mersenne_twister_engine de 64 bits, crea numeros pseudorandoms de 64 bits
     //L'engine de l'algorisme esta optimitzar per crear llargues sequencies de numeros seguint una 
