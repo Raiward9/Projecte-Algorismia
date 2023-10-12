@@ -30,7 +30,10 @@ int main() {
         }
         cout << endl;
 
-        vector<double> closestPoint = tree.nearestNeighbour(p);
+        pair<int, vector<double>> tmp = tree.nearestNeighbour(p);
+        int visited_nodes = tmp.first;
+        cout << "Number of visited nodes: " << visited_nodes << endl;
+        vector<double> closestPoint = tmp.second;
         
         cout << "Closest Point: ";
         for(auto x: closestPoint) {
