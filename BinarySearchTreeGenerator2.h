@@ -32,6 +32,13 @@ public:
         return tree;
     }
 
+    vector<double> generar_targets(unsigned int dim) {
+        vector<double> target(dim);
+        for(int i = 0; i < dim; ++i) target[i] = Uniforme(num_generator);
+
+        return target;
+    }
+
 private:
     //mersenne_twister_engine de 64 bits, crea numeros pseudorandoms de 64 bits
     //L'engine de l'algorisme esta optimitzar per crear llargues sequencies de numeros seguint una 
@@ -45,7 +52,7 @@ private:
     //Pre: 0 < dim
     //Genera dim números aleatoris seguint una distribució uniforme i un valor de info
     pair<int, vector<double>> create_node(unsigned int dim) {
-        int info = 1;        // ni idea de que ha de ser la info, no se ni si ho posa a l'enunciat
+        int info = 1; 
         
         vector<double> key(dim);
         for(int i = 0; i < dim; ++i) 
