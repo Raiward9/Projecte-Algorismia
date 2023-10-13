@@ -12,7 +12,6 @@ BinSearchTreeGenerator GENERATOR;
 //per cada clau {mida, dimensio} -> {cost_mitja, variancia}
 map<pair<int, int>, pair<double, double>> resultats;
 
-
 //calcular variancia
 double variancia(const vector<int>& instancies, double mitja) {
     double var = 0;
@@ -20,16 +19,18 @@ double variancia(const vector<int>& instancies, double mitja) {
         double diff = double(x) - mitja;
         var += diff*diff;
     }
-    return var / instancies.size();    
+    if(instancies.size() < 2)  return 0;
+    else return var / (instancies.size() - 1);    
 }
 
 //print del map amb els resultats
 void print_resultats(const map<pair<int,int>, pair<double, double>>& resultats) {
-
+    
     for(auto it = resultats.begin(); it != resultats.end(); ++it) {
         cout << "n: " << (*it).first.first << ", k: " << (*it).first.second;
         cout << ", cost_mitja: " << (*it).second.first << ", variancia: " << (*it).second.second << endl;
     }
+    
 }
 
 int main() {
