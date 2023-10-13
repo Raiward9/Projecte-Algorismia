@@ -9,7 +9,7 @@ vector<pair<int, int>> intervals_i_factors = {{1000000, 4}, {1000000000, 2}};
 
 BinSearchTreeGenerator GENERATOR;
 
-//per cada clau {mida, dimensio} -> {coeficient_mitja, variancia}
+//per cada clau {mida, dimensio} -> {cost_mitja, variancia}
 map<pair<int, int>, pair<double, double>> resultats;
 
 
@@ -49,7 +49,7 @@ int main() {
             vector<int> nodes; 
             int suma_nodes_visitats = 0; // nodes_visitats = cost => suma_nodes_visitats = suma_cost
 
-            for(int i = 0; i < N; ++i) { //genearar N arbres
+            for(int i = 0; i < N; ++i) { //generar N arbres
                 
                 BinSearchTree<int> tree = GENERATOR.generate_tree(n, k);
 
