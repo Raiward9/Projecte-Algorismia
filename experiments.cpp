@@ -34,10 +34,10 @@ void print_resultats(const map<pair<int,int>, pair<double, double>>& resultats) 
 }
 
 int main() {
-    int N = 0; 
-    cout << "Introdueix la N: "; cin >> N; //numero arbres per parella {mida, dimensions}
-    int Q = 0;
-    cout << "Introdueix la Q: "; cin >> Q; //numero queries per arbre
+    int N = 3; 
+    //cout << "Introdueix la N: "; cin >> N; //numero arbres per parella {mida, dimensions}
+    int Q = 3;
+    //cout << "Introdueix la Q: "; cin >> Q; //numero queries per arbre
 
     int n = n_INI;
     int factor = intervals_i_factors[0].second; //factor pel que es multiplica la n
