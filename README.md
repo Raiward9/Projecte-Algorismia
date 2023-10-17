@@ -11,7 +11,7 @@ Per poder compilar i executar el nostre programa, segueix aquests senzills passo
 4. Un cop la compilació s'hagi completat amb èxit, podràs executar el programa utilitzant la següent comanda:
 
    ```bash
-   ./nom_del_programa
+   ./experiments
 
 # ATENCIÓ:
 
