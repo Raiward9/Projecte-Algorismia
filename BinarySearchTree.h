@@ -119,17 +119,17 @@ public:
 	}
 
 	// Pre: p.size() == k
-	// Returns the closest point from p in the tree by euclidean distance
-	vector<double> nearestNeighbour(const vector<double>& p) {
+	// Returns the closest point from p in the tree by euclidean distance and the number of nodes visited in the process
+	pair<int, vector<double>> nearestNeighbour(const vector<double>& p) {
 		
 		vector<double> closestPoint = closest_leaf(p, root, 0)->key;
 		double distClosestPoint = euclideanDist(closestPoint,p);
 		int numNodes = 0;
 		nearestNeighbourRecursive(p,root,closestPoint,distClosestPoint,numNodes,0);
 
-		cout << "Distance from p: " << distClosestPoint << endl;
-		cout << "Number of visited nodes: " << numNodes << endl;
-		return closestPoint;
+		//cout << "Distance from p: " << distClosestPoint << endl;
+		pair<int, vector<double>> res = {numNodes, closestPoint};
+		return res;
 	}
 
 private:
