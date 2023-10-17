@@ -198,15 +198,14 @@ private:
 		}
 	}
 
-	//Pre:
+	
 	//Returns true if the node is a leaf, false otherwise
 	bool is_leaf(node* a) {
 		return not empty(a) and empty(a->left) and empty(a->right);
 	}
 
 	
-	//Pre: si
-	//Wikipedia
+	// recursively finds the nearest neighbour
 	void nearestNeighbourRecursive(const vector<double>& p, node* x,  vector<double>& closestPoint, 
 								 double& distClosestPoint, int& numNodes, int level) {
 			
