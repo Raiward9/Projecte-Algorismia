@@ -64,7 +64,6 @@ public:
 					if (empty(a->left)) {
 						node* newnode = new node(info, key);
 						a->left = newnode;
-						newnode->parent = a;
 						found = true;
 					}	
 					else a = a->left;
@@ -73,7 +72,6 @@ public:
 					if (empty(a->right)) {
 						node* newnode = new node(info, key);
 						a->right = newnode;
-						newnode->parent = a;
 						found = true;
 					}
 					else a = a->right;
@@ -136,14 +134,12 @@ private:
 	struct node {
 		T info;
 		vector<double> key;
-		node* parent;
 		node* left;
 		node* right;
 
 		node(const T& i, const vector<double>& k) {
 			info = i;
 			key = k;
-			parent = nullptr;
 			left = nullptr;
 			right = nullptr; 
 		}
@@ -275,12 +271,10 @@ private:
 	void recursiveCopy(node* refNode, node* copyNode) {
 		if (not empty(refNode->left)) {
 			copyNode->left = new node(refNode->left->info, refNode->left->key);
-			copyNode->left->parent = copyNode;
 			recursiveCopy(refNode->left, copyNode->left);
 		}
 		if (not empty(refNode->right)) {
 			copyNode->right = new node(refNode->right->info, refNode->right->key);
-			copyNode->right->parent = copyNode;
 			recursiveCopy(refNode->right, copyNode->right);
 		}
 	}
