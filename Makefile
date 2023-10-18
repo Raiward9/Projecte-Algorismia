@@ -2,7 +2,7 @@
 CXX = g++
 
 # Opciones del compilador
-CXXFLAGS = -Wall -std=c++11
+CXXFLAGS = -Wall -O2 -std=c++11
 
 # Nombres de los archivos de origen y el ejecutable
 SRC = experiments.cpp
