@@ -21,7 +21,7 @@ public:
     BinSearchTree<int> generate_tree(unsigned int num_nodes, unsigned int k_dim) {
         BinSearchTree<int> tree(k_dim);
         
-        for(int i = 0; i < num_nodes; ++i) {
+        for(unsigned int i = 0; i < num_nodes; ++i) {
             pair<int, vector<double>> node = create_node(k_dim);
             int info = node.first;
             vector<double> key = node.second;
@@ -34,7 +34,7 @@ public:
 
     vector<double> generar_targets(unsigned int dim) {
         vector<double> target(dim);
-        for(int i = 0; i < dim; ++i) target[i] = Uniforme(num_generator);
+        for(unsigned int i = 0; i < dim; ++i) target[i] = Uniforme(num_generator);
 
         return target;
     }
@@ -55,7 +55,7 @@ private:
         int info = 1; 
         
         vector<double> key(dim);
-        for(int i = 0; i < dim; ++i) 
+        for(unsigned int i = 0; i < dim; ++i) 
             key[i] = Uniforme(num_generator);
         
         pair<int, vector<double>> res = {info, key};
